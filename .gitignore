@@ -1,0 +1,11 @@
+bin/
+.vs/
+.vscode/
+obj/
+Debug/
+logs/
+.github/
+*.user
+*.suo
+*.cache
+*.log
