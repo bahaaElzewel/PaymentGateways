@@ -1,10 +1,24 @@
+using PaymentGateways.Services;
+using PaymentGateways.Services.Hmac;
+using PaymentGateways.Services.Paymob;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
-builder.Services.AddControllers();
+builder.Services.AddControllers().ConfigureApiBehaviorOptions(o =>
+{
+    o.SuppressModelStateInvalidFilter = true;
+});
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
 builder.Services.AddOpenApi();
+
+
+builder.Services.AddScoped<IPaymentGateway, PaymobPaymentService>();
+builder.Services.AddScoped<BasePaymentService>();
+builder.Services.AddScoped<IAcceptHmac, AcceptHmac>();
+
+builder.Services.AddHttpClient();
 
 var app = builder.Build();
 
